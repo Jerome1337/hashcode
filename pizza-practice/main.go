@@ -64,17 +64,34 @@ func solveProblem() []int {
 	var (
 		slicesSum = 0
 		pizzaType = make([]int, 0)
+		sliceLen = len(PizzaSliceNum) - 1
 	)
 
-	for i := len(PizzaSliceNum)-1; i >= 0; i-- {
-		tmp := slicesSum + PizzaSliceNum[i]
+	for range PizzaSliceNum {
+		tmpSlicesSum := 0
+		tmpPizzaType := make([]int, 0)
 
-		if tmp >= MaxSlice {
-			continue
+		for i := sliceLen; i >= 0; i-- {
+			tmpSum := tmpSlicesSum + PizzaSliceNum[i]
+
+			if tmpSum > MaxSlice {
+				continue
+			}
+
+			tmpSlicesSum = tmpSum
+			tmpPizzaType = append(tmpPizzaType, i)
 		}
 
-		slicesSum = tmp
-		pizzaType = append(pizzaType, i)
+		if tmpSlicesSum > slicesSum {
+			slicesSum = tmpSlicesSum
+			pizzaType = tmpPizzaType
+		}
+
+		if slicesSum == MaxSlice {
+			break
+		}
+
+		sliceLen--
 	}
 
 	return pizzaType

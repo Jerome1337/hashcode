@@ -17,7 +17,7 @@ var (
 )
 
 func main() {
-	filepath.Walk("input", func(file string, f os.FileInfo, err error) error {
+	filepath.Walk("../input", func(file string, f os.FileInfo, err error) error {
 		if !f.IsDir() {
 			MaxSlice = 0
 			PizzaTypeNum = 0
